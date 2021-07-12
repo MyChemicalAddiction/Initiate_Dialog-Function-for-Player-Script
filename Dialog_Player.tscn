@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Dialog-System-Example/fonts/body_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Dialog-System-Example/textures/menu_section_9patch.png" type="Texture" id=2]
+[ext_resource path="res://Dialog_Player.gd" type="Script" id=3]
+[ext_resource path="res://Templates & Misc/Simulated_Registry.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "TextDisplay"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[node name="Dialog_Player" type="Node2D"]
+pause_mode = 2
+scale = Vector2( 1.75, 1.75 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Dialog_Box" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+rect_scale = Vector2( 0.75, 0.75 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Body_NinePatchRect" type="NinePatchRect" parent="Dialog_Box"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -341.0
+margin_top = -64.0068
+margin_right = 351.0
+margin_bottom = 107.993
+rect_min_size = Vector2( 250, 45 )
+texture = ExtResource( 2 )
+region_rect = Rect2( 1, 1, 61, 61 )
+patch_margin_left = 59
+patch_margin_right = 59
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Body_Label" type="Label" parent="Dialog_Box/Body_NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -333.5
+margin_top = -49.5
+margin_right = 333.5
+margin_bottom = 49.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+autowrap = true
+percent_visible = 0.6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Body_AnimationPlayer" type="AnimationPlayer" parent="Dialog_Box/Body_NinePatchRect/Body_Label"]
+anims/TextDisplay = SubResource( 1 )
+
+[node name="Speaker_NinePatchRect" type="NinePatchRect" parent="Dialog_Box/Body_NinePatchRect"]
+margin_left = -9.4762
+margin_top = -55.9932
+margin_right = 254.524
+margin_bottom = 8.00681
+rect_min_size = Vector2( 30, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+patch_margin_left = 10
+patch_margin_top = 14
+patch_margin_right = 10
+patch_margin_bottom = 11
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Speaker_Label" type="Label" parent="Dialog_Box/Body_NinePatchRect/Speaker_NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+text = "Speaker"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option_List" type="VBoxContainer" parent="Dialog_Box/Body_NinePatchRect"]
+pause_mode = 2
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -624.333
+margin_top = 172.0
+margin_right = -84.3334
+margin_bottom = 272.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="Dialog_Box/Body_NinePatchRect/Option_List"]
+
+[node name="Simulated_Registry" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 4 )
+[connection signal="animation_finished" from="Dialog_Box/Body_NinePatchRect/Body_Label/Body_AnimationPlayer" to="." method="_on_Body_AnimationPlayer_animation_finished"]
