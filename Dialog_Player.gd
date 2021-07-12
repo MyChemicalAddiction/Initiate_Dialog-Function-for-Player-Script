@@ -62,7 +62,6 @@ func _on_Option_clicked(slot):
 		_play_node()
 
 func _on_Dialog_Player_pressed_spacebar():
-	print('ayo the pizza here')
 	_get_next_node()
 	if _is_playing():
 		_play_node()
